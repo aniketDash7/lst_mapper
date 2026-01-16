@@ -1,8 +1,8 @@
-# 🌡️ CityCool: Urban Heat Island (UHI) Monitor
+# CityCool: Urban Heat Island (UHI) Monitor
 
 **CityCool** is a geospatial data science tool that monitors Urban Heat Islands using satellite imagery. It allows users to visualize how vegetation cover (NDVI) directly correlates with Land Surface Temperature (LST) in any city around the world.
 
-## 🚀 Features
+## Features
 - **Global Coverage**: Analyze any city using real-time search via Nominatim.
 - **Satellite Intelligence**: Fetches **Landsat 8/9 Level 2 Science Products** (Surface Temperature & Surface Reflectance) directly from the [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/).
 - **Live Processing**:
@@ -10,13 +10,13 @@
   - **NDVI Calculation**: Computes vegetation health from Red and Near-Infrared bands.
 - **Interactive Dashboard**: Built with Streamlit for easy, web-based interaction.
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Python 3.10+**
 - **Data Access**: `pystac-client`, `odc-stac`, `planetary-computer`
 - **Geospatial Processing**: `xarray`, `rioxarray`, `geopandas`
 - **Visualization**: `streamlit`, `matplotlib`, `folium`
 
-## 📦 Installation
+## Installation
 
 1. **Clone the repository** (or navigate to the folder):
    ```bash
@@ -43,7 +43,7 @@ streamlit run app.py
    - **Left**: Land Surface Temperature (°C)
    - **Right**: Normalized Difference Vegetation Index (NDVI)
 
-## 🧮 How It Works
+## How It Works
 
 ### 1. Data Ingestion (`src.data_loader`)
 We query the Microsoft Planetary Computer STAC API for the `landsat-c2-l2` collection. We filter by:
@@ -61,7 +61,7 @@ $$ T_{Celsius} = (DN \times 0.003418 + 149.0) - 273.15 $$
 $$ NDVI = \frac{NIR - Red}{NIR + Red} $$
 *Signal Source: Band 5 (NIR) and Band 4 (Red)*
 
-## 📂 Project Structure
+## Project Structure
 ```
 UHI-Monitor/
 ├── app.py              # Main dashboard script
