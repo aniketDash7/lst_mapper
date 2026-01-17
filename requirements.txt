@@ -1,12 +1,22 @@
-streamlit
+# Flask Web Framework
+flask
+flask-cors
+
+# Geospatial Data Access
 pystac-client
 odc-stac
 planetary-computer
+
+# Data Processing
 xarray
 rioxarray
+numpy
+
+# Geospatial Libraries
 geopandas
 geopy
-folium
-streamlit-folium
-matplotlib
 rasterio
+
+# Visualization & Image Generation
+matplotlib
+pillow

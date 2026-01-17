@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UHI Monitor - Urban Heat Island Analysis</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" stroke-width="2" />
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke-width="2" />
+                </svg>
+                <h1 class="logo-text">UHI Monitor</h1>
+            </div>
+
+            <div class="header-controls">
+                <div class="date-picker-group">
+                    <label for="start-date">From:</label>
+                    <input type="date" id="start-date" class="date-input">
+
+                    <label for="end-date">To:</label>
+                    <input type="date" id="end-date" class="date-input">
+                </div>
+
+                <button id="analyze-btn" class="btn-primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    Analyze
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Map -->
+    <div id="map"></div>
+
+    <!-- Search Panel -->
+    <div class="panel search-panel" id="search-panel">
+        <div class="panel-header">
+            <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+            </svg>
+            <h2>Location Search</h2>
+        </div>
+
+        <div class="search-input-wrapper">
+            <input type="text" id="location-search" class="search-input" placeholder="Search for a city..."
+                autocomplete="off">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+        </div>
+
+        <div class="help-text">
+            💡 Search for any city or click anywhere on the map
+        </div>
+
+        <div class="selected-location" id="selected-location" style="display: none;">
+            <div class="location-badge">
+                <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                </svg>
+                <span id="location-name">-</span>
+            </div>
+            <div class="location-coords" id="location-coords">-</div>
+        </div>
+    </div>
+
+    <!-- Stats Panel -->
+    <div class="panel stats-panel" id="stats-panel" style="display: none;">
+        <div class="panel-header">
+            <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="20" x2="12" y2="10" />
+                <line x1="18" y1="20" x2="18" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="16" />
+            </svg>
+            <h2>Analysis Results</h2>
+            <button class="close-btn" id="close-stats">×</button>
+        </div>
+
+        <div class="stats-content">
+            <div class="scene-info">
+                <div class="info-row">
+                    <span class="info-label">Scene Date:</span>
+                    <span class="info-value" id="scene-date">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Cloud Cover:</span>
+                    <span class="info-value" id="cloud-cover">-</span>
+                </div>
+            </div>
+
+            <!-- LST Statistics -->
+            <div class="stat-section">
+                <h3 class="stat-title">
+                    <span class="color-square"
+                        style="background: linear-gradient(90deg, #3b4cc0 0%, #b40426 100%);"></span>
+                    Land Surface Temperature
+                </h3>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">Min</div>
+                        <div class="stat-value" id="lst-min">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Max</div>
+                        <div class="stat-value" id="lst-max">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Mean</div>
+                        <div class="stat-value" id="lst-mean">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Std Dev</div>
+                        <div class="stat-value" id="lst-std">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NDVI Statistics -->
+            <div class="stat-section">
+                <h3 class="stat-title">
+                    <span class="color-square"
+                        style="background: linear-gradient(90deg, #d73027 0%, #1a9850 100%);"></span>
+                    Vegetation Index (NDVI)
+                </h3>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">Min</div>
+                        <div class="stat-value" id="ndvi-min">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Max</div>
+                        <div class="stat-value" id="ndvi-max">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Mean</div>
+                        <div class="stat-value" id="ndvi-mean">-</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Std Dev</div>
+                        <div class="stat-value" id="ndvi-std">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Correlation -->
+            <div class="correlation-section">
+                <div class="correlation-header">
+                    <span>LST-NDVI Correlation</span>
+                    <span class="correlation-value" id="correlation">-</span>
+                </div>
+                <div class="correlation-bar">
+                    <div class="correlation-fill" id="correlation-fill"></div>
+                </div>
+                <div class="correlation-interpretation" id="correlation-text">-</div>
+            </div>
+
+            <!-- UHI Magnitude -->
+            <div class="uhi-section">
+                <div class="uhi-badge">
+                    <svg class="uhi-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                    </svg>
+                    <div>
+                        <div class="uhi-label">UHI Magnitude</div>
+                        <div class="uhi-value" id="uhi-magnitude">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layer Controls -->
+        <div class="layer-controls">
+            <h3 class="layer-title">Map Layers</h3>
+            <div class="layer-toggles">
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle-lst" checked>
+                    <span class="toggle-switch"></span>
+                    <span>Land Surface Temperature</span>
+                </label>
+                <label class="toggle-label">
+                    <input type="checkbox" id="toggle-ndvi" checked>
+                    <span class="toggle-switch"></span>
+                    <span>NDVI (Vegetation)</span>
+                </label>
+            </div>
+
+            <div class="opacity-control">
+                <label for="layer-opacity">Layer Opacity</label>
+                <input type="range" id="layer-opacity" min="0" max="100" value="70" class="opacity-slider">
+                <span id="opacity-value">70%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-text">Analyzing...</div>
+            <div class="loading-subtext" id="loading-subtext">Fetching satellite data</div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/static/js/app.js"></script>
+</body>
+
+</html>

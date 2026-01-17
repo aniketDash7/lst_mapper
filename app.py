@@ -8,7 +8,7 @@ from src.processor import calculate_lst, calculate_ndvi
 
 st.set_page_config(page_title="CityCool: UHI Monitor", layout="wide")
 
-st.title("🌡️ CityCool: Urban Heat Island Monitor")
+st.title("CityCool: Urban Heat Island Monitor")
 st.markdown("""
 Monitor Land Surface Temperature (LST) and Vegetation Health (NDVI) using Landsat 8/9 satellite data.
 Identify urban hot spots and their correlation with lack of green cover.

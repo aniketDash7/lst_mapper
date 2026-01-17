@@ -42,8 +42,8 @@ def fetch_landsat_data(bbox, start_date, end_date, max_cloud_cover=20):
         selected_items,
         bbox=bbox,
         bands=["red", "nir08", "lwir11", "qa_pixel"],
-        resolution=30,
-        crs="EPSG:3857" # Web Mercator for easier mapping
+        resolution=0.0003,  # ~30m in degrees for WGS84
+        crs="EPSG:4326"  # WGS84 for Leaflet compatibility
     )
     
     return data
