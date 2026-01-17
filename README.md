@@ -226,12 +226,7 @@ Process LST and NDVI for a region.
 
 ---
 
-<<<<<<< HEAD
-## 📂 Project Structure
-
-=======
 ## Project Structure
->>>>>>> 1596af02ec96fdfc99271aaeb95947a1a6b8d505
 ```
 UHI-Monitor/
 ├── flask_app.py              # Main Flask application
