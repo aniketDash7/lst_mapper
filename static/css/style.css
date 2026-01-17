@@ -753,6 +753,121 @@ body {
 }
 
 /* ====================================
+   Map Legend
+   ==================================== */
+
+.legend-panel {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1rem;
+    min-width: 220px;
+    box-shadow: var(--shadow-lg);
+    z-index: 600;
+    animation: slideIn 0.3s ease;
+}
+
+.legend-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.legend-icon {
+    width: 20px;
+    height: 20px;
+    stroke: var(--primary);
+}
+
+.legend-header span {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+}
+
+.legend-item {
+    margin-bottom: 1rem;
+}
+
+.legend-item:last-child {
+    margin-bottom: 0;
+}
+
+.legend-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.legend-gradient {
+    height: 20px;
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lst-gradient {
+    /* Matches matplotlib RdYlBu_r colormap */
+    background: linear-gradient(90deg,
+            #313695 0%,
+            /* Dark blue (cool)     */
+            #4575b4 20%,
+            /* Blue                 */
+            #abd9e9 40%,
+            /* Light blue           */
+            #fee090 60%,
+            /* Yellow               */
+            #f46d43 80%,
+            /* Orange               */
+            #a50026 100%
+            /* Dark red (hot)       */
+        );
+}
+
+.ndvi-gradient {
+    /* Matches matplotlib RdYlGn colormap */
+    background: linear-gradient(90deg,
+            #d73027 0%,
+            /* Red (bare)           */
+            #fc8d59 25%,
+            /* Orange               */
+            #fee08b 50%,
+            /* Yellow               */
+            #d9ef8b 75%,
+            /* Light green          */
+            #1a9850 100%
+            /* Dark green (vegetation) */
+        );
+}
+
+.legend-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+.scale-label {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.legend-description {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ====================================
    Responsive Design
    ==================================== */
 

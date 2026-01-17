@@ -225,6 +225,41 @@
         </div>
     </div>
 
+    <!-- Map Legend -->
+    <div class="legend-panel" id="legend-panel" style="display: none;">
+        <div class="legend-header">
+            <svg class="legend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Legend</span>
+        </div>
+
+        <!-- LST Legend -->
+        <div class="legend-item" id="lst-legend" style="display: none;">
+            <div class="legend-label">Land Surface Temperature</div>
+            <div class="legend-gradient lst-gradient"></div>
+            <div class="legend-scale">
+                <span class="scale-label">Cool</span>
+                <span class="scale-label">Hot</span>
+            </div>
+            <div class="legend-description">Blue = Low temp, Red = High temp</div>
+        </div>
+
+        <!-- NDVI Legend -->
+        <div class="legend-item" id="ndvi-legend" style="display: none;">
+            <div class="legend-label">Vegetation Index (NDVI)</div>
+            <div class="legend-gradient ndvi-gradient"></div>
+            <div class="legend-scale">
+                <span class="scale-label">-0.2</span>
+                <span class="scale-label">0.8</span>
+            </div>
+            <div class="legend-description">Red = Bare soil, Green = Dense vegetation</div>
+        </div>
+    </div>
+
     <!-- Toast Notifications -->
     <div class="toast-container" id="toast-container"></div>
 

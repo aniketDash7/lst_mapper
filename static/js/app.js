@@ -86,6 +86,7 @@ function initEventListeners() {
                 state.map.removeLayer(state.lstLayer);
             }
         }
+        updateLegend();
     });
 
     document.getElementById('toggle-ndvi').addEventListener('change', (e) => {
@@ -96,6 +97,7 @@ function initEventListeners() {
                 state.map.removeLayer(state.ndviLayer);
             }
         }
+        updateLegend();
     });
 
     // Opacity slider
@@ -111,6 +113,30 @@ function initEventListeners() {
             state.ndviLayer.setOpacity(opacity);
         }
     });
+}
+
+// ====================================
+// Legend Management
+// ====================================
+
+function updateLegend() {
+    const legendPanel = document.getElementById('legend-panel');
+    const lstLegend = document.getElementById('lst-legend');
+    const ndviLegend = document.getElementById('ndvi-legend');
+
+    const lstToggle = document.getElementById('toggle-lst').checked;
+    const ndviToggle = document.getElementById('toggle-ndvi').checked;
+
+    // Show/hide individual legend items
+    lstLegend.style.display = (lstToggle && state.lstLayer) ? 'block' : 'none';
+    ndviLegend.style.display = (ndviToggle && state.ndviLayer) ? 'block' : 'none';
+
+    // Show legend panel if any layer is visible
+    if ((lstToggle && state.lstLayer) || (ndviToggle && state.ndviLayer)) {
+        legendPanel.style.display = 'block';
+    } else {
+        legendPanel.style.display = 'none';
+    }
 }
 
 // ====================================
@@ -336,6 +362,9 @@ async function addDataLayers(data) {
 
     // Fit bounds
     state.map.fitBounds(data.lst.bounds, { padding: [50, 50] });
+
+    // Update legend
+    updateLegend();
 }
 
 // ====================================
