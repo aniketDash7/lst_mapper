@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 # 🌡️ UHI Monitor - Professional Web Application
+=======
+# CityCool: Urban Heat Island (UHI) Monitor
+>>>>>>> 1596af02ec96fdfc99271aaeb95947a1a6b8d505
 
 **Version 2.0** | A modern web application for monitoring Urban Heat Islands using real-time satellite data
 
+<<<<<<< HEAD
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org)
 [![Flask](https://img.shields.io/badge/Flask-3.1+-green.svg)](https://flask.palletsprojects.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -9,6 +14,23 @@
 ---
 
 ## 🎯 What is UHI Monitor?
+=======
+## Features
+- **Global Coverage**: Analyze any city using real-time search via Nominatim.
+- **Satellite Intelligence**: Fetches **Landsat 8/9 Level 2 Science Products** (Surface Temperature & Surface Reflectance) directly from the [Microsoft Planetary Computer](https://planetarycomputer.microsoft.com/).
+- **Live Processing**:
+  - **LST Calculation**: Converts thermal infrared digital numbers to degrees Celsius.
+  - **NDVI Calculation**: Computes vegetation health from Red and Near-Infrared bands.
+- **Interactive Dashboard**: Built with Streamlit for easy, web-based interaction.
+
+## Tech Stack
+- **Python 3.10+**
+- **Data Access**: `pystac-client`, `odc-stac`, `planetary-computer`
+- **Geospatial Processing**: `xarray`, `rioxarray`, `geopandas`
+- **Visualization**: `streamlit`, `matplotlib`, `folium`
+
+## Installation
+>>>>>>> 1596af02ec96fdfc99271aaeb95947a1a6b8d505
 
 UHI Monitor is a professional full-stack web application that analyzes **Urban Heat Islands** using Landsat 8/9 satellite imagery. It provides an intuitive, map-based interface for visualizing Land Surface Temperature (LST) and vegetation health (NDVI) anywhere in the world.
 
@@ -43,10 +65,7 @@ pip install -r requirements.txt
 
 ### Running the Application
 
-```bash
-# Start the Flask server
-python flask_app.py
-```
+## How It Works
 
 Open your browser and navigate to: **http://localhost:5000**
 
@@ -221,8 +240,12 @@ Process LST and NDVI for a region.
 
 ---
 
+<<<<<<< HEAD
 ## 📂 Project Structure
 
+=======
+## Project Structure
+>>>>>>> 1596af02ec96fdfc99271aaeb95947a1a6b8d505
 ```
 UHI-Monitor/
 ├── flask_app.py              # Main Flask application
